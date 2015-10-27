@@ -14,8 +14,13 @@ public class CidadeControler {
 	CidadeRepositorio cidadeRepositorio;
 
 	@RequestMapping(value = "/cidade")
-	public String lista(Model model) {
+	public String lista(Cidade cidade, Model model) {
 		model.addAttribute("cidades", cidadeRepositorio.findAll());
+		if (cidade.getId() != null) {
+			model.addAttribute("cidade", cidadeRepositorio.findOne(cidade.getId()));
+		} else {
+			model.addAttribute("cidade", new Cidade());
+		}
 		return "Cidade";
 	}
 
@@ -25,4 +30,9 @@ public class CidadeControler {
 		return "redirect:/cidade";
 	}
 
+	@RequestMapping(value = "/cidade/del")
+	public String deletar(Cidade cidade) {
+		cidadeRepositorio.delete(cidade);
+		return "redirect:/cidade";
+	}
 }

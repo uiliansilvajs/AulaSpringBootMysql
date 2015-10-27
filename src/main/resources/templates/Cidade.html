@@ -19,7 +19,8 @@
 			<form action="/cidade/save" method="post">
 				<div class="form-group">
 					<label>Nome</label> 
-					<input type="text" class="form-control"
+					<input type="hidden" th:value="${cidade.id}"  name="id"/>
+					<input type="text" th:value="${cidade.nome}" class="form-control"
 						placeholder="Cidade" name="nome"/>
 				</div>
 				<button type="submit" class="btn btn-default">Submit</button>
@@ -31,12 +32,15 @@
 				<tr>
 					<th>ID</th>
 					<th>Nome</th>
+					<th>Remover</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="cidade:${cidades}">
 					<td th:text="${cidade.id}"></td>
 					<td th:text="${cidade.nome}"></td>
+					<td> <a th:href="@{/cidade/del(id=${cidade.id})}" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a></td>
+					<td> <a th:href="@{/cidade(id=${cidade.id})}" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a></td>
 				</tr>
 			</tbody>
 		</table>
